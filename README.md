@@ -6,7 +6,10 @@ One of these networks in the NOAA CORS network in the United States. RINEX obser
 
 ### Prerequisites
 
-You need to install python3.6 or above on your local, for MacOS
+You need to install python3.6 or above on your local, for MacOS. if the
+script need to run on other OS, please check teqc toolkits, it will
+require update to that OS version, otherwise it will get unexpected
+issue.
 
 Install Brew then Install Python3
 
