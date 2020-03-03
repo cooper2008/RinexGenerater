@@ -47,15 +47,15 @@ class ftp_file:
     #         return 0
 
     def download_file(self, file_orig, file_copy_local):
-        logging.info("download_file()---> local_path = %s ,remote_path = %s" % (file_copy_local, file_orig))
+        logging.info("download_file()---> local_path = {} ,remote_path = {}".format(file_copy_local, file_orig))
         try:
-            logging.info('>>>>>>>>>>>>download file %s ... ...' % file_copy_local)
+            logging.info('>>>>>>>>>>>>download file {} ... ...'.format(file_copy_local))
             buf_size = 1024
             file_handler = open(file_copy_local, 'wb')
-            self.ftp.retrbinary('RETR %s' % file_orig, file_handler.write, buf_size)
+            self.ftp.retrbinary('RETR {}'.format(file_orig), file_handler.write, buf_size)
             file_handler.close()
         except Exception as err:
-            logging.warning('download error：%s ' % err)
+            logging.warning('download error：{}'.format(err))
             return
 
 
