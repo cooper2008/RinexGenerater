@@ -25,7 +25,7 @@ brew install git
 please download the repo by git
 
 ```
-git clone https://
+git clone https://github.com/cooper2008/RinexGenerater.git
 ```
 
 Install all python libs, under project root dir
