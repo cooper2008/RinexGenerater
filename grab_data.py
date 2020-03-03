@@ -173,7 +173,7 @@ if __name__ == "__main__":
     removefiles(donwnload_file_list)
     o_file_list = list_local_dir(LOCAL_PATH, ".*o$")
     logging.info("All RINEX files : {}".format(o_file_list))
-    cmd = "teqc {} > ./mergefiles_folder/RINEXdataset.o".format(" ".join(o_file_list))
+    cmd = "teqc {} > ./mergefiles_folder/RINEXdataset.obs".format(" ".join(o_file_list))
     logging.info("Executing CMD : {}".format(cmd))
     out_bytes = subprocess.check_output(cmd, shell=True)
     removefiles(o_file_list)
