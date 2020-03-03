@@ -1,19 +1,20 @@
 __author__ = 'Cooper Guo'
 import getopt
+import logging
 import os
 import re
-import sys
 import subprocess
-import logging
+import sys
+from datetime import datetime
 
 from RINEXlinkgenerator import rinexlink
 from exception_handler import st_et_input_exception_handler
 from exception_handler import time_parms_handler
 from ftpservice_api import ftp_file
-from timer_convertor import string2datetime
-from local_files_api import removefiles
-from local_files_api import list_local_dir
 from local_files_api import decompress_files
+from local_files_api import list_local_dir
+from local_files_api import removefiles
+from timer_convertor import string2datetime
 
 GNSS_URL = "www.ngs.noaa.gov"
 LOCAL_PATH = "./mergefiles_folder"
@@ -21,11 +22,11 @@ CURRENT_PATH = os.path.abspath('.')
 os.environ['PATH'] += ":" + CURRENT_PATH
 
 logging.basicConfig(
-                level    = logging.DEBUG,
-                format   = 'LINE %(lineno)-4d  %(levelname)-8s %(message)s',
-                datefmt  = '%m-%d %H:%M',
-                filename = "/tmp/RINEXgenerator.log",
-                filemode = 'w')
+    level=logging.DEBUG,
+    format='LINE %(lineno)-4d  %(levelname)-8s %(message)s',
+    datefmt='%m-%d %H:%M',
+    filename="/tmp/RINEXgenerator.log",
+    filemode='w')
 # define a Handler which writes INFO messages or higher to the sys.stderr
 console = logging.StreamHandler()
 console.setLevel(logging.INFO)
@@ -34,7 +35,6 @@ formatter = logging.Formatter('LINE %(lineno)-4d : %(levelname)-8s %(message)s')
 # tell the handler to use this format
 console.setFormatter(formatter)
 logging.getLogger('').addHandler(console)
-
 
 
 def file_list_filter(file_list, pattern):
@@ -173,11 +173,9 @@ if __name__ == "__main__":
     removefiles(donwnload_file_list)
     o_file_list = list_local_dir(LOCAL_PATH, ".*o$")
     logging.info("All RINEX files : {}".format(o_file_list))
-    cmd = "teqc {} > ./mergefiles_folder/RINEXdataset.obs".format(" ".join(o_file_list))
+    cmd = "teqc {} > ./mergefiles_folder/RINEXdataset{}.obs".format(" ".join(o_file_list),
+                                                                    datetime.utcnow().strftime("%Y-%M-%dT%H:%M:%S"))
     logging.info("Executing CMD : {}".format(cmd))
     out_bytes = subprocess.check_output(cmd, shell=True)
     removefiles(o_file_list)
     logging.info("Process completed!, Please check in mergefiles_folder")
-
-
-
